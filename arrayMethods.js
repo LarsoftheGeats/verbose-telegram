@@ -47,7 +47,14 @@ const prices = [15.00, 23.00, 78.00, 34.00, 12.00, 86.00, 12.00, 79.00, 32.00];
 */
 
 // CODE HERE
-//const postTaxPrices // = prices.map(/* Provide Your Callback Here );
+function calcPrices (element, index, wholeArray){
+  let taxRate=.07
+  element=element * (1+taxRate)
+  return element
+}
+const postTaxPrices = prices.map(calcPrices/* Provide Your Callback Here */);
+// console.log(prices)
+// console.log(postTaxPrices)//test passed
 
 
 
@@ -65,7 +72,13 @@ const populations = [8175133, 3792621, 2695598, 2100263];
 */
 
 // CODE HERE
-//const totalPopulation //  = populations.reduce(/* Provide Your Callback Here */)
+function summedPop (runningTotal, curElement, curIndex, wholeArray){
+  return runningTotal+=curElement;
+}
+
+//inline
+const totalPopulation = populations.reduce(summedPop/* Provide Your Callback Here */)
+console.log(totalPopulation)
 
 
 
@@ -90,7 +103,11 @@ const monstersInYourPocket = [{"monster":"Bulbabunny","CP":156},{"monster":"Bulb
 */
 
 // CODE HERE
-// // = monstersInYourPocket.filter(/* Provide Your Callback Here */)
+function callback(monster){
+  return monster.CP>200
+}
+const myStrongest = monstersInYourPocket.filter(callback)
+console.log(myStrongest)
 
 
 
@@ -101,6 +118,7 @@ const orders = [{"price":15,"tax":0.09},{"price":42,"tax":0.07},{"price":56,"tax
 {"price":80,"tax":0.11},{"price":69,"tax":0.06},{"price":68,"tax":0.14},
 {"price":72,"tax":0.14},{"price":51,"tax":0.09},{"price":89,"tax":0.15},
 {"price":48,"tax":0.13}];
+
 // Do not edit code above.
 
 /*
@@ -108,8 +126,21 @@ const orders = [{"price":15,"tax":0.09},{"price":42,"tax":0.07},{"price":56,"tax
 */
 
 // CODE HERE
+function totalOrder (accum, obj){
+  let p = obj.price;
+  let t = obj.tax
+  accum = (p * (1 + t)) + accum
+
+  return accum 
+
+}
+let totalCost = orders.reduce( totalOrder,0 )
 
 
+console.log(totalCost)
+console.log(orders[0].price)
+let tempSum = orders[0].price + orders[1].price
+console.log(tempSum)
 
 ////////// PROBLEM 6 //////////
 
@@ -128,3 +159,12 @@ const purchases = [{"owner":"Barry","price":103},{"owner":"Bob","price":75},
 */
 
 // CODE HERE
+function totalBob(a, o){
+  a=a+o.price
+  return a
+}
+let bobArray = purchases.filter((o) => (o.owner === "Bob") );
+console.log(bobArray)
+const bobsTotal = bobArray.reduce( totalBob, 0)
+console.log(bobsTotal)
+console.log(bobArray[0].price)
